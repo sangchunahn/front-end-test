@@ -11,7 +11,13 @@ class Senators extends Component {
     autoBind(this)
     this.state = {
       state: 'UT',
-      personDetails: ''
+      personDetails: {
+        firstName: 'First Name',
+        lastName: 'Last Name',
+        district: 'District',
+        phone: 'Phone',
+        office: 'Office',
+      }
     }
   }
   componentWillMount() {
@@ -20,8 +26,17 @@ class Senators extends Component {
 
   handleClick(event, senator) {
     console.log('event: ', senator);
+    let firstName = senator.name.split(' ').slice(0, -1).join(' ')
+    let lastName = senator.name.split(' ').slice(-1).join(' ')
+    console.log('lastName: ', lastName);
     this.setState({
-      personDetails: senator
+      personDetails: {
+        firstName: firstName,
+        lastName: lastName,
+        district: senator.district,
+        phone: senator.phone,
+        office: senator.office,
+      }
     })
   }
 
@@ -30,7 +45,7 @@ class Senators extends Component {
     return (
       <div className='senators-container'>
             <div className='senator-list'>
-              <h3>List of Senators</h3>
+              <h3>List of Represenatives</h3>
               <table>
                 <thead>
                   <tr>
@@ -40,12 +55,13 @@ class Senators extends Component {
                 </thead>
                 <tbody>
                   {_.map(this.props.senator.results, senator => {
+                    let party = senator.party.charAt(0)
                     return (
                       <tr key={senator.name} onClick={(event) => {
                         this.handleClick(event, senator)
                         }}>
                         <td>{senator.name}</td>  
-                        <td>{senator.party}</td>  
+                        <td>{party}</td>  
                       </tr>
                     )
                   })}
@@ -53,7 +69,14 @@ class Senators extends Component {
               </table>
             </div>
             <div className='senator-details'>
-
+              <h3>Info</h3>
+              <div className='info-container'>
+                <span>{this.state.personDetails.firstName}</span>
+                <span>{this.state.personDetails.lastName}</span>
+                <span>{this.state.personDetails.district}</span>
+                <span>{this.state.personDetails.phone}</span>
+                <span>{this.state.personDetails.office}</span>
+              </div>
             </div>
       </div>
     );
