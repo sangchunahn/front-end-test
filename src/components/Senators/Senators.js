@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getSenators } from '../../services/index'
+import { getReps } from '../../services/index'
 import { connect } from 'react-redux';
 import autoBind from 'react-autobind'
 import './Senators.css'
@@ -22,13 +23,12 @@ class Senators extends Component {
   }
   componentWillMount() {
     this.props.getSenators(this.state.state)
+    this.props.getReps(this.state.state)
   }
 
   handleClick(event, senator) {
-    console.log('event: ', senator);
     let firstName = senator.name.split(' ').slice(0, -1).join(' ')
     let lastName = senator.name.split(' ').slice(-1).join(' ')
-    console.log('lastName: ', lastName);
     this.setState({
       personDetails: {
         firstName: firstName,
@@ -38,14 +38,15 @@ class Senators extends Component {
         office: senator.office,
       }
     })
+    event.preventDefault()
   }
 
   render() {
-    console.log('this.props: ', this.props.senator.results)
+    console.log('this.props: ', this.props)
     return (
       <div className='senators-container'>
             <div className='senator-list'>
-              <h3>List of Represenatives</h3>
+              <h3>List / <span>Representatives</span> </h3>
               <table>
                 <thead>
                   <tr>
@@ -86,7 +87,8 @@ class Senators extends Component {
 function mapStateToProps(state) {
     return {
         senator: state.senators.all,
+        rep: state.reps.all
     }
 }
 
-export default connect(mapStateToProps, {getSenators})(Senators);
+export default connect(mapStateToProps, {getSenators, getReps})(Senators);
