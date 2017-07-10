@@ -1,13 +1,13 @@
 import axios from 'axios';
 
+export const GET_SENATORS = 'GET_SENATORS';
+
 const ROOT_URL = 'http://localhost:3002/';
 
-export function selectBook(id) {
-    const request = axios.get(`${ROOT_URL}books/${id}`).then((response) => {
-      console.log('response: ', response);
-    })
+export function getSenators(state) {
+    const request = axios.get(`${ROOT_URL}senators/:${state}`)
     return {
-        type: BOOK_SELECTED,
+        type: GET_SENATORS,
         payload: request
     }
 }

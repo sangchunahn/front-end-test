@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
+import { getSenators } from '../services/index';
+import { connect } from 'react-redux';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      state: 'UT'
+    }
+    console.log('this.props: ', this.props);
+  }
+  componentWillMount() {
+    this.props.getSenators(this.state.state)
+  }
+
   render() {
     return (
       <div className="App">
@@ -15,5 +28,9 @@ class App extends Component {
     );
   }
 }
-
-export default App;
+function mapStateToProps(state) {
+    return {
+        senator: state.senators.all,
+    }
+}
+export default connect(mapStateToProps, {getSenators})(App);
