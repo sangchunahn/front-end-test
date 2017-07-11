@@ -17,7 +17,15 @@
 }
 
 .submit-button {
+    width: 70px;
+    height: 20px;
     margin-left: 40px;
+    border-style: none;
+    border-radius: 4px;
+    border-color: #21ABED;
+    background-color: #21ABED; 
+    color: white;
+    cursor: pointer;
 }
 
 .senator-list h3 {

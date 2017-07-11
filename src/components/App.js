@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Senators from './Senators/Senators';
+import Representatives from './Representatives/Representatives';
 import './App.css';
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
           <h2>Who's my Representative?</h2>
         </div>
         <div>
-          <Senators/>
+          <Representatives/>
         </div>
       </div>
     );

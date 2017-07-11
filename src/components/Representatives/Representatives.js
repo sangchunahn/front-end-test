@@ -4,16 +4,17 @@ import { getReps } from '../../services/index';
 import { connect } from 'react-redux';
 import autoBind from 'react-autobind';
 import states from '../../states_titlecase.json'
-import './Senators.css';
+import './Representatives.css';
 import _ from 'lodash';
 
-class Senators extends Component {
+class Representatives extends Component {
   constructor(props) {
     super(props)
     autoBind(this)
     this.state = {
-      state: 'AL',
-      selectValue: 'senator',
+      state: 'States',
+      selectValue: 'Rep/Senator',
+      reps: '',
       personDetails: {
         firstName: 'First Name',
         lastName: 'Last Name',
@@ -23,9 +24,22 @@ class Senators extends Component {
       }
     }
   }
-  componentWillMount() {
-    this.props.getSenators(this.state.state)
-    this.props.getReps(this.state.state)
+  handleSubmit() {
+    if (this.state.selectValue === 'senator') {
+      return this.props.getSenators(this.state.state)
+      .then(() => {
+        this.setState({
+          reps: this.props.senator
+        })
+      })
+    } else {
+    return this.props.getReps(this.state.state)
+    .then(() => {
+      this.setState({
+        reps: this.props.rep
+      })
+    })
+    }
   }
 
   handleClick(event, senator) {
@@ -40,17 +54,17 @@ class Senators extends Component {
         office: senator.office,
       }
     })
-    event.preventDefault()
   }
+
   handleChange(event) {
     this.setState({selectValue:event.target.value});
   }
+
   handleChangeStates(event) {
     this.setState({state: event.target.value});
   }
+
   render() {
-    console.log('this.props: ', this.props)
-    console.log('states: ', states[0].abbreviation)
     return (
       <div>
         <div className='dropdown-container'>
@@ -73,7 +87,7 @@ class Senators extends Component {
             )
           })}
           </select>
-          <button className='submit-button'>Submit</button>
+          <button className='submit-button' onClick={this.handleSubmit}>Submit</button>
         </div> 
         <div className='senators-container'>
               <div className='senator-list'>
@@ -86,13 +100,13 @@ class Senators extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {_.map(this.props.senator.results, senator => {
-                      let party = senator.party.charAt(0)
+                    {_.map(this.state.reps.results, rep => {
+                      let party = rep.party.charAt(0)
                       return (
-                        <tr key={senator.name} onClick={(event) => {
-                          this.handleClick(event, senator)
+                        <tr key={rep.name} onClick={(event) => {
+                          this.handleClick(event, rep)
                           }}>
-                          <td>{senator.name}</td>  
+                          <td>{rep.name}</td>  
                           <td>{party}</td>  
                         </tr>
                       )
@@ -123,4 +137,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, {getSenators, getReps})(Senators);
+export default connect(mapStateToProps, {getSenators, getReps})(Representatives);
