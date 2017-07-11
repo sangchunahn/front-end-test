@@ -6,6 +6,7 @@ Simple application utilizing api http://whoismyrepresentative.com/api
 * Run `npm install` or `yarn`
 * Run `npm start` or `yarn start`
 * cd into server and `nodemon` or `node index.js`
+* If it doesn't work at the start just wait for the server to finish loading
 
 # Who's my Representative?
 
