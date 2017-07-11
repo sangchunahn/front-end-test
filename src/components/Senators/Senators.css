@@ -12,6 +12,14 @@
     margin-left: 40px;
 }
 
+.dropdown-container {
+    display: flex;
+}
+
+.submit-button {
+    margin-left: 40px;
+}
+
 .senator-list h3 {
     font-weight: 400;
     color: gray;

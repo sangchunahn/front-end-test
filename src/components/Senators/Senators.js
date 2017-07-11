@@ -12,7 +12,7 @@ class Senators extends Component {
     super(props)
     autoBind(this)
     this.state = {
-      state: 'UT',
+      state: 'AL',
       selectValue: 'senator',
       personDetails: {
         firstName: 'First Name',
@@ -46,14 +46,14 @@ class Senators extends Component {
     this.setState({selectValue:event.target.value});
   }
   handleChangeStates(event) {
-    this.setState({selectValue:event.target.value});
+    this.setState({state: event.target.value});
   }
   render() {
     console.log('this.props: ', this.props)
     console.log('states: ', states[0].abbreviation)
     return (
       <div>
-        <div>
+        <div className='dropdown-container'>
           <select
           className='select-value' 
           defaultValue={this.state.selectValue} 
@@ -62,18 +62,18 @@ class Senators extends Component {
             <option value="rep">Representatives</option>
             <option value="senator">Senators</option>
           </select>
-        </div> 
-        <div>
           <select
           className='select-value' 
           defaultValue={this.state.state} 
           onChange={this.handleChangeStates} 
           >
           {_.map(states, state => {
-            console.log('state.abbreviation: ', state.abbreviation);
-            <option value={state.abbreviation}>{state.abbreviation}</option>
+            return (
+              <option key={state.abbreviation} value={state.abbreviation}>{state.abbreviation}</option>
+            )
           })}
           </select>
+          <button className='submit-button'>Submit</button>
         </div> 
         <div className='senators-container'>
               <div className='senator-list'>
