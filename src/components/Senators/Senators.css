@@ -8,6 +8,10 @@
     margin: 20px;
 }
 
+.select-value {
+    margin-left: 40px;
+}
+
 .senator-list h3 {
     font-weight: 400;
     color: gray;
@@ -60,6 +64,11 @@ table {
 th {
     background-color: #F7F7F8;
 
+}
+
+tr:hover{
+    cursor: pointer;
+    background-color: #F7F7F8;
 }
 
 td, th {
